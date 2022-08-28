@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!--HEAD-->
+<%- include('partials/head')  %>
+
+    <body>
+        <!--HEADER-->
+        <%- include('partials/header')  %>
+        <ul class="errors"></ul>
+
+            <form action="/productDetail/<%= Product.id %>" method="POST" class="cont-form" enctype="multipart/form-data">
+
+                <div class="p-form">
+                    <h1>Edita el producto</h1>
+                    <div class="igroup">
+                        <input type="text" name="name" id="name" value="<%= Product.name %>"><span class="ibar"></span>
+                        <label for="name">Nombre del producto</label>
+                    </div>
+
+                    <div class="igroup">
+                        <input type="number" name="price" value="<%= Product.price %>" id="price" ><span class="ibar"></span>
+                        <label for="price">Precio</label>
+                    </div>
+
+                    <div class="igroup">
+                        <input type="file" name="image" value="<%= Product.image%>" id="image"><span class="ibar"></span>
+                        <label for="image">Imagen</label>
+                    </div>
+
+                    <div class="igroup">
+                        <textarea cols="200" name="description" id="description"> <%= Product.description%></textarea><span class="ibar"></span>
+                        <label for="description">Descripción</label>
+                    </div>
+
+                    <div class="igroup">
+                        <textarea cols="1000" name="description_detail" id="description_detail"> <%= Product.description_detail%></textarea><span class="ibar"></span>
+                        <label for="description_detail">Descripción detalle</label>
+                    </div>
+
+                    <div class="igroup">
+                        <input type="number" name="stock" value="<%= Product.stock %>" id="stock"><span class="ibar"></span>
+                        <label for="stock">Stock</label>
+                    </div>
+
+                    <!--aqui va lo de categoria-->
+
+                    <!-- HIDDEN-->
+                    <div class="igroup" hidden>
+                        <input type="Text" name="transferable" value="<%= Product.transferable %>" id="transferable"><span class="ibar"></span>
+                        <label for="transferable">transferable</label>
+                    </div>
+                    <div class="igroup" hidden>
+                        <input type="Text" name="discount" value="<%= Product.discount %>" id="discount"><span class="ibar"></span>
+                        <label for="discount">discount</label>
+                    </div>
+                    <div class="igroup" hidden>
+                        <input type="Text" name="shipping" value="<%= Product.shipping %>" id="shipping"><span class="ibar"></span>
+                        <label for="shipping">shipping</label>
+                    </div>
+
+                    <button type="submit" class="button">Guardar producto</button>
+                </div>
+            </form>
+            <script src="/js/productsAddValidation.js"></script>
+            <!--FOOTER-->
+            <%- include('partials/footer')  %>
+    </body>
+
+</html>x
