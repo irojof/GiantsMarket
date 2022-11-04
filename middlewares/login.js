@@ -26,20 +26,20 @@ const validationLogin = [
     .isEmail().withMessage("Debe ingresar un formato de email válido"),*/
   body('password').custom((value, {req}) => {
   return db.User.findOne({where: { email: req.body.email}})
-  /*.then((user)=>{
-    if (!bcrypt.compareSync(value, user.password)){
+  .then((user)=>{
+    if (!bcrypt.compare(value, user.password)){
       return Promise.reject()
-    }*/
-  })//.catch(() => {
-    //return Promise.reject("Las contraseñas no coinciden");
-  //})
+    }
+  }).catch(() => {
+    return Promise.reject("Las contraseñas no coinciden");
+  })
   
 
     /*body('email').notEmpty().withMessage("El email no puede estar vacio").bail()
     .isEmail().withMessage("Debe ingresar un formato de email válido"),
     // body('password').notEmpty().withMessage("La contraseña no puede ser vacio").bail()
     // .isLength({ min: 8, max: 10 }).withMessage("La contraseña debe tener entre 8 a 10 caracteres")*/
-
+})
 ]
 
 module.exports = validationLogin;

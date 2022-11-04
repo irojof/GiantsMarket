@@ -8,33 +8,35 @@ const { user } = require('../userController');
 
 
 const User = db.User;
-const Rol= db.Rol;
+const Rol = db.Rol;
 
 const userAPIController = {
     'list': (req, res) => {
         db.User.findAll({
-            attributes: ['id', 'first_name', 'email', [db.sequelize.fn("CONCAT",'api/users/',db.Sequelize.col('id')),"detail"]
-            
-        ]})
+            attributes: ['id', 'first_name', 'email', [db.sequelize.fn("CONCAT", 'api/users/', db.Sequelize.col('id')), "detail"]
 
-      
+            ]
+        })
+
+
         .then(users => {
             let respuesta = {
-                
+
                 meta: {
-                    status : 200,
+                    status: 200,
                     total: users.length,
                     url: 'api/users'
                 },
                 data: users
             }
-                res.json(respuesta);
-            })
-    },
-    
-    'detail': (req, res) => {
-        db.User.findByPk(req.params.id,{attributes: ['id', 'first_name', 'last_name', 'email','date','gender','image' ]
+            res.json(respuesta);
         })
+    },
+
+    'detail': (req, res) => {
+        db.User.findByPk(req.params.id, {
+                attributes: ['id', 'first_name', 'last_name', 'email', 'date', 'gender', 'image']
+            })
             .then(users => {
                 let respuesta = {
                     meta: {
@@ -47,9 +49,29 @@ const userAPIController = {
                 res.json(respuesta);
             });
     },
-    
-    
-    
+
+    'lastUser': (req, res) => {
+        db.User.findAll({
+                limit: 1,
+                order: [
+                    ['id', 'DESC'],
+                ]
+
+            })
+            .then(users => {
+                return res.json({
+                    meta: {
+                        status: 200,
+                        url: "/api/users/last-user",
+                    },
+                    data: users
+
+                })
+            })
+
+    }
+
+
 }
 
 module.exports = userAPIController;
